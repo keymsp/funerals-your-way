@@ -31,12 +31,12 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;font-size:106.25%} /* 17px root — larger, senior-friendly base */
 body{
   margin:0;
   font-family:var(--sans);
-  font-size:18px;
-  line-height:1.7;
+  font-size:1.12rem;
+  line-height:1.75;
   color:var(--ink);
   background:var(--cream);
   -webkit-font-smoothing:antialiased;
@@ -172,7 +172,7 @@ hr{border:none;border-top:1px solid var(--line);margin:2.5rem 0}
 .breadcrumb a:hover{color:var(--green-700)}
 
 /* ---------- Prose (markdown content) ---------- */
-.prose{font-size:1.06rem}
+.prose{font-size:1.14rem}
 .prose h2{margin-top:2.2rem;padding-bottom:.35rem;position:relative}
 .prose h2::after{content:"";display:block;width:62px;height:3px;background:var(--brass);border-radius:2px;margin-top:.5rem}
 .prose h3{margin-top:1.7rem;color:var(--green-800)}
