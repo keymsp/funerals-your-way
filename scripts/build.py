@@ -17,6 +17,8 @@ ASSETS_SRC = os.path.join(ROOT, "assets")
 LIVE_DOMAIN = "https://funeralsyourway.com"   # canonical target (the real site)
 DEMO_NOINDEX = True   # keep the GitHub Pages preview out of search results
                       # (flip to False when this becomes the live site)
+BASEURL = "/funerals-your-way"   # GitHub Pages project subpath; set to "" for a
+                                 # root domain (custom domain or user/org pages site)
 
 SITE = {
     "name": "Funerals Your Way",
@@ -144,6 +146,14 @@ def fix_internal_links(html_str):
             return m.group(0)
         return 'href="' + LIVE_DOMAIN + href + '"'
     return re.sub(r'href="(/[^"#]*)"', repl, html_str)
+
+def apply_baseurl(html_str):
+    """Prefix remaining root-relative URLs (our own pages + assets) with BASEURL so
+    the site works when served from a GitHub Pages project subpath."""
+    if not BASEURL:
+        return html_str
+    return re.sub(r'(href|src)="(/[^"#]*)"',
+                  lambda m: f'{m.group(1)}="{BASEURL}{m.group(2)}"', html_str)
 
 # ---------------------------------------------------------------- helpers
 def parse_page(path):
@@ -390,7 +400,7 @@ def build_page(page):
         og_image=esc(og_image), schema=schema, topbar=render_topbar(), header=render_header(),
         breadcrumb=render_breadcrumb(page), hero=hero_html,
         content=content, faqs=render_faqs(page), footer=render_footer())
-    out = fix_internal_links(out)
+    out = apply_baseurl(fix_internal_links(out))
     dest = page_html_path(slug)
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     open(dest, "w", encoding="utf-8").write(out)
@@ -442,6 +452,7 @@ def write_404():
         schema=f'<script type="application/ld+json">{json.dumps(org_schema())}</script>',
         topbar=render_topbar(), header=render_header(), breadcrumb="",
         hero=render_hero(page), content=page["_body"], faqs="", footer=render_footer())
+    html_out = apply_baseurl(fix_internal_links(html_out))
     open(os.path.join(OUT, "404.html"), "w", encoding="utf-8").write(html_out)
 
 def clean_out():
