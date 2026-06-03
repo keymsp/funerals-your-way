@@ -5,7 +5,8 @@ funeral home (FD #2188). This is a fast, static, SEO-optimized rebuild of the ex
 **warm & traditional** look (deep sage green + warm cream + brass, Lora serif headings). All page
 copy is migrated from the live site; the structure, services, pricing, and SEO are preserved and improved.
 
-**Live preview:** _(GitHub Pages URL added after deploy)_
+**Live preview:** https://keymsp.github.io/funerals-your-way/
+**Repository:** https://github.com/keymsp/funerals-your-way
 
 ## How it works
 
