@@ -292,6 +292,16 @@ def page_schemas(page):
             "areaServed": "San Diego County, CA",
             "url": LIVE_DOMAIN + url_for(page["slug"]),
             "description": page.get("description", "")})
+    if st in ("Article", "BlogPosting"):
+        out.append({"@context": "https://schema.org", "@type": "BlogPosting",
+            "headline": page.get("h1") or page.get("title"),
+            "image": page.get("og_image") or page.get("hero_image") or SITE["og_default"],
+            "datePublished": page.get("date") or page.get("lastmod"),
+            "dateModified": page.get("lastmod"),
+            "author": {"@type": "Organization", "name": SITE["name"], "url": LIVE_DOMAIN + "/"},
+            "publisher": {"@id": LIVE_DOMAIN + "/#org"},
+            "mainEntityOfPage": LIVE_DOMAIN + url_for(page["slug"]),
+            "description": page.get("description", "")})
     if page.get("faqs"):
         out.append({"@context": "https://schema.org", "@type": "FAQPage",
             "mainEntity": [{"@type": "Question", "name": f["q"],
