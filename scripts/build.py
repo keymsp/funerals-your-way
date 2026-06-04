@@ -49,6 +49,20 @@ SITE = {
 }
 SOCIAL_ICONS = {"Facebook": "f", "YouTube": "▶", "LinkedIn": "in", "Pinterest": "P", "Instagram": "◎"}
 
+PHONE_SVG = ('<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 '
+    '19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 '
+    '1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>')
+
+def brand_lockup(footer=False):
+    sz = 52 if footer else 56
+    sub = "San Diego · FD #2188" if footer else "San Diego Funeral Home · FD #2188"
+    cls = "brand brand--footer" if footer else "brand"
+    eager = "" if footer else ' loading="eager"'
+    return (f'<a class="{cls}" href="/" aria-label="Funerals Your Way — home">'
+            f'<span class="brand-mark"><img src="/assets/img/emblem.svg" width="{sz}" height="{sz}" alt=""{eager}></span>'
+            f'<span class="brand-word"><strong>Funerals Your Way</strong><small>{sub}</small></span></a>')
+
 # Top utility bar links
 TOPBAR = [
     ("Obituaries", "/obituaries/"), ("Videos", "/funeral-videos/"),
@@ -182,7 +196,7 @@ def render_topbar():
         for l, u in TOPBAR)
     return f'''<div class="topbar"><div class="container">
       <div class="tb-links">{links}</div>
-      <a class="tb-phone" href="tel:{SITE['tel']}">📞 {SITE['phone']} · Available 24/7</a>
+      <a class="tb-phone" href="tel:{SITE['tel']}">{PHONE_SVG} {SITE['phone']} · Available 24/7</a>
     </div></div>'''
 
 def render_header():
@@ -194,12 +208,10 @@ def render_header():
             f'<span class="caret">▼</span></a><div class="mega"><ul>{kids}</ul></div></li>')
     desktop = "".join(items)
     return f'''<header class="site-header"><div class="container"><div class="header-inner">
-      <a class="brand" href="/">
-        <img src="{SITE['logo']}" alt="Funerals Your Way logo" width="160" height="52" loading="eager">
-      </a>
+      {brand_lockup()}
       <nav class="primary-nav" aria-label="Primary"><ul>{desktop}</ul></nav>
       <div class="nav-cta">
-        <a class="btn btn-brass" href="tel:{SITE['tel']}">Call 24/7</a>
+        <a class="btn btn-brass" href="tel:{SITE['tel']}">{PHONE_SVG} Call 24/7</a>
         <button class="btn nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
     </div></div>{render_mobile_nav()}</header>'''
@@ -215,7 +227,7 @@ def render_mobile_nav():
         tgt = " target=_blank rel=noopener" if u.startswith("http") else ""
         groups.append(f'<li class="m-flat"><a href="{esc(u)}"{tgt}>{esc(l)}</a></li>')
     return f'''<div class="mobile-nav" id="mobileNav"><ul>{"".join(groups)}
-      <li class="m-cta"><a class="btn btn-brass btn-lg" href="tel:{SITE['tel']}">📞 Call {SITE['phone']}</a></li>
+      <li class="m-cta"><a class="btn btn-brass btn-lg" href="tel:{SITE['tel']}">{PHONE_SVG} Call {SITE['phone']}</a></li>
     </ul></div>'''
 
 def render_footer():
@@ -227,7 +239,7 @@ def render_footer():
     year = datetime.date.today().year
     return f'''<footer class="site-footer"><div class="container"><div class="footer-grid">
       <div class="footer-brand">
-        <img src="{SITE['logo']}" alt="Funerals Your Way logo">
+        {brand_lockup(footer=True)}
         <p>A locally owned San Diego funeral home ({SITE['fd']}) providing cremation, burial,
            veteran, and memorial services with transparent pricing and compassionate, no-pressure guidance.</p>
         <div class="footer-social">{soc}</div>
@@ -249,7 +261,7 @@ def render_footer():
       <span>© {year} {SITE['name']} · {SITE['fd']} · {SITE['street']}, {SITE['city']}, {SITE['region']} {SITE['zip']}</span>
       <span><a href="/privacy-policy/">Privacy</a> · <a href="/terms-of-service/">Terms</a> · <a href="/accessibility-statement/">Accessibility</a></span>
     </div></div></footer>
-    <a class="call-fab" href="tel:{SITE['tel']}">📞 Call 24/7</a>'''
+    <a class="call-fab" href="tel:{SITE['tel']}">{PHONE_SVG} Call 24/7</a>'''
 
 # ---------------------------------------------------------------- JSON-LD
 def org_schema():
@@ -436,10 +448,13 @@ def write_robots():
 
 def write_favicon():
     svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
-           '<rect width="64" height="64" rx="12" fill="#2C463A"/>'
-           '<path d="M32 12c-7 9-12 15-12 22a12 12 0 0 0 24 0c0-7-5-13-12-22z" fill="#B08D57"/>'
-           '<rect x="30" y="30" width="4" height="22" rx="2" fill="#F7F2E9"/>'
-           '<rect x="22" y="38" width="20" height="4" rx="2" fill="#F7F2E9"/></svg>')
+           '<rect width="64" height="64" rx="14" fill="#26402f"/>'
+           '<circle cx="42" cy="33" r="11" fill="#E4C083"/>'
+           '<rect y="39" width="64" height="25" fill="#1d3127"/>'
+           '<path d="M0 41 C 9 36 22 38 31 43 L31 64 L0 64 Z" fill="#2f4a39"/>'
+           '<g fill="#16241c"><rect x="20.4" y="24" width="2.4" height="19" rx="1"/>'
+           '<ellipse cx="19" cy="22" rx="13" ry="3"/><ellipse cx="22" cy="26.5" rx="10.5" ry="2.6"/>'
+           '<ellipse cx="24" cy="31" rx="7.5" ry="2.2"/></g></svg>')
     open(os.path.join(OUT, "assets", "favicon.svg"), "w", encoding="utf-8").write(svg)
 
 def write_404():

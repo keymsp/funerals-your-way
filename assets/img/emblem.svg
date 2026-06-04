@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Funerals Your Way">
+  <defs>
+    <linearGradient id="fywSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a6e54"/>
+      <stop offset="1" stop-color="#26402f"/>
+    </linearGradient>
+    <clipPath id="fywClip"><rect width="64" height="64" rx="16"/></clipPath>
+  </defs>
+  <g clip-path="url(#fywClip)">
+    <rect width="64" height="64" fill="url(#fywSky)"/>
+    <!-- sun -->
+    <circle cx="42" cy="33" r="11.5" fill="#E4C083"/>
+    <circle cx="42" cy="33" r="11.5" fill="#C99B5C" opacity="0.45"/>
+    <!-- water -->
+    <rect x="0" y="39" width="64" height="25" fill="#1d3127"/>
+    <rect x="0" y="39" width="64" height="2" fill="#E4C083" opacity="0.5"/>
+    <g stroke="#3a5a45" stroke-width="1.4" fill="none" opacity="0.55" stroke-linecap="round">
+      <path d="M33 45 H58"/><path d="M38 50 H60"/><path d="M30 55 H52"/>
+    </g>
+    <!-- bluff -->
+    <path d="M0 41 C 9 36, 22 38, 31 43 L 31 64 L 0 64 Z" fill="#2f4a39"/>
+    <!-- Torrey pine -->
+    <g fill="#16241c">
+      <path d="M20.4 43 C20 35 20.2 29 21 23.6 L22.6 23.6 C23.4 29 23.2 36 22.8 43 Z"/>
+      <ellipse cx="19" cy="22" rx="13" ry="3"/>
+      <ellipse cx="22" cy="26.5" rx="10.5" ry="2.6"/>
+      <ellipse cx="24" cy="31" rx="7.5" ry="2.2"/>
+    </g>
+  </g>
+  <rect x="1.25" y="1.25" width="61.5" height="61.5" rx="14.75" fill="none" stroke="#C99B5C" stroke-width="1.5" opacity="0.6"/>
+</svg>
